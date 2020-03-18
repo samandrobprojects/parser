@@ -39,18 +39,23 @@ public class CalculationExpression {
             SyntaxTreeEvaluator<Double> evaluatorOfCalculationExpression = SyntaxTreeEvaluator.syntaxTreeEvaluatorWithEvaluationRuleset(calculationExpressionRuleset.getEvaluationRulesetForCalculationExpressions());
 
             Double resultOfCalculationExpression = evaluatorOfCalculationExpression.evaluateSyntaxTree(calculationExpressionSyntaxTree);
-
-            return resultOfCalculationExpression;
+            return _roundToEaightDecimalPlaces(resultOfCalculationExpression);
         } catch (Exception exception) {
             exception.printStackTrace();
             throw new CalculationExpressionException(exception.getMessage());
         }
     }
 
+    private Double _roundToEaightDecimalPlaces(Double doubleToReound) {
+        Double roundingBase = 100000000.0;
+        return Math.round(doubleToReound * roundingBase) / roundingBase;
+    }
+
 
     public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET() {
         ArrayList<Operation<Double>> operationsInRuleset = new ArrayList<>();
 
+        operationsInRuleset.add(Operations.Constants.PI_CONSTANT);
         operationsInRuleset.add(Operations.ADDITION_OPERATION);
         operationsInRuleset.add(Operations.SUBTRACTION_OPERATION);
         operationsInRuleset.add(Operations.MULTIPLICATION_OPERATION);

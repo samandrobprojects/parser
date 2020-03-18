@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TestClass {
     @Test
     public void evaluatesExpression() {
-        String testString = "cos (3.14159265 + 1)";
+        String testString = "sin (PI +1)";
 
         Double resultValue = -1.0;
         try {

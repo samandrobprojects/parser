@@ -4,6 +4,17 @@ import functional.Maybe;
 
 public class Operations {
 
+    public static class Constants {
+
+        public static final Operation<Double> PI_CONSTANT = Operation.constantOperationWithSyntaxConstantOperationEvaluation(Syntax.identifierSyntaxAsString("PI"), new Operation.ConstantOperationEvaluation<Double>() {
+            @Override
+            public Maybe<Double> maybeValueResultOfEvaluatingConstantToValue() {
+                return Maybe.asObject(Math.PI);
+            }
+        });
+
+    }
+
     public static final Operation<Double> ADDITION_OPERATION = Operation.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('+'), 50, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {

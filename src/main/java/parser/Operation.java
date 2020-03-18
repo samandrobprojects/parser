@@ -21,30 +21,30 @@ public class Operation<VALUE> {
     }
 
     public static <VALUE> Operation<VALUE> infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax givenSyntax, int bindingStrength, InfixOperationEvaluation<VALUE> infixOperationEvaluation) {
-        return new Operation<>(givenSyntax, bindingStrength, Maybe.asNothing(), Maybe.asObject(infixOperationEvaluation));
+        return new Operation<VALUE>(givenSyntax, bindingStrength, Maybe.asNothing(), Maybe.asObject(infixOperationEvaluation), Maybe.asNothing());
     }
 
     public static <VALUE> Operation<VALUE> prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax givenSyntax, int bindingStrength, PrefixOperationEvaluation<VALUE> prefixOperationEvaluation) {
-        return new Operation<>(givenSyntax, bindingStrength, Maybe.asObject(prefixOperationEvaluation), Maybe.asNothing());
+        return new Operation<VALUE>(givenSyntax, bindingStrength, Maybe.asObject(prefixOperationEvaluation), Maybe.asNothing(), Maybe.asNothing());
 
     }
 
-    public static <VALUE> Operation<VALUE> constantOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax givenSyntax, int bindingStrength, PrefixOperationEvaluation<VALUE> prefixOperationEvaluation) {
-        return new Operation<>(givenSyntax, bindingStrength, Maybe.asObject(prefixOperationEvaluation), Maybe.asNothing());
-
+    public static <VALUE> Operation<VALUE> constantOperationWithSyntaxConstantOperationEvaluation(Syntax givenSyntax, ConstantOperationEvaluation<VALUE> constantOperationEvaluation) {
+        return new Operation<VALUE>(givenSyntax, 0, Maybe.asNothing(), Maybe.asNothing(), Maybe.asObject(constantOperationEvaluation));
     }
 
     private final Syntax _givenSyntax;
     private final int _bindingStrength;
     private final Maybe<PrefixOperationEvaluation<VALUE>> _maybePrefixOperationEvaluation;
     private final Maybe<InfixOperationEvaluation<VALUE>> _maybeInfixOperationEvaluation;
-    private final Maybe<InfixOperationEvaluation<VALUE>> _maybeInfixOperationEvaluation;
+    private final Maybe<ConstantOperationEvaluation<VALUE>> _maybeConstantOperationEvaluation;
 
-    private Operation(Syntax givenSyntax, int bindingStrength, Maybe<PrefixOperationEvaluation<VALUE>> maybePrefixOperationEvaluation, Maybe<InfixOperationEvaluation<VALUE>> maybeInfixOperationEvaluation) {
+    private Operation(Syntax givenSyntax, int bindingStrength, Maybe<PrefixOperationEvaluation<VALUE>> maybePrefixOperationEvaluation, Maybe<InfixOperationEvaluation<VALUE>> maybeInfixOperationEvaluation, Maybe<ConstantOperationEvaluation<VALUE>> maybeConstantOperationEvaluation) {
         _givenSyntax = givenSyntax;
         _bindingStrength = bindingStrength;
         _maybeInfixOperationEvaluation = maybeInfixOperationEvaluation;
         _maybePrefixOperationEvaluation = maybePrefixOperationEvaluation;
+        _maybeConstantOperationEvaluation = maybeConstantOperationEvaluation;
     }
 
     public Syntax getSyntaxOfOperation() {
@@ -69,11 +69,22 @@ public class Operation<VALUE> {
         });
     }
 
+    public Maybe<VALUE> maybeValueResultOfEvaluatingAsConstantToValue() {
+        return _maybeConstantOperationEvaluation.applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<VALUE>, ConstantOperationEvaluation<VALUE>, VALUE>() {
+            @Override
+            public Maybe<VALUE> performMonadicOperation(ConstantOperationEvaluation<VALUE> constantOperationEvaluation) {
+                return constantOperationEvaluation.maybeValueResultOfEvaluatingConstantToValue();
+            }
+        });
+    }
+
     public void classifySyntaxOfOperation(SyntaxRuleset.SyntaxCategoryClassifier syntaxClassifier) {
         if (_maybeInfixOperationEvaluation.isNotNothing()) {
             syntaxClassifier.classfiyAsInfixOperationWithBindingStrength(_bindingStrength);
         } else if (_maybePrefixOperationEvaluation.isNotNothing()) {
             syntaxClassifier.classfiyAsPrefixOperationWithBindingStrength(_bindingStrength);
+        } else if (_maybeConstantOperationEvaluation.isNotNothing()) {
+            syntaxClassifier.classifyAsValue();
         } else {
             syntaxClassifier.classifyAsInvalid();
         }

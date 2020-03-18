@@ -100,6 +100,10 @@ public class CalculationExpressionRuleset {
                 if (givenToken instanceof NumericalToken) {
                     return Maybe.asObject(((NumericalToken)givenToken).getDoubleRepresentationOfNumericalToken());
                 } else {
+                    Maybe<Operation<Double>> maybeOperationForGivenToken = _maybeMatchTokenToOperation(givenToken);
+                    if (maybeOperationForGivenToken.isNotNothing()) {
+                        return maybeOperationForGivenToken.object().maybeValueResultOfEvaluatingAsConstantToValue();
+                    }
                     return Maybe.asNothing();
                 }
             }

@@ -86,10 +86,11 @@ public class Tokeniser {
             stringRepresentingNumericalTokenBeingParsed += _consumeNextEmittedSequenceOfNumericDigits();
             boolean nextCharactersAreDecimalPointAndThenNumber = _nextEmittedCharacterIsIdenticalTo('.') && _maybeCharacterIsNumeric(_maybeNextOverEmittedCharacter());
             if (nextCharactersAreDecimalPointAndThenNumber) {
-                _consumeNextEmittedCharacter();
+                stringRepresentingNumericalTokenBeingParsed += _consumeNextEmittedCharacter();
                 stringRepresentingNumericalTokenBeingParsed += _consumeNextEmittedSequenceOfNumericDigits();
             }
             double numericTokenAsDouble = Double.parseDouble(stringRepresentingNumericalTokenBeingParsed);
+            System.out.printf("_tokeniseNextNumericalTokenIfExists: %f, %s\n", numericTokenAsDouble, stringRepresentingNumericalTokenBeingParsed);
             _provideNextToken(NumericalToken.newNumericalTokenRepresentedWithDoubleRepresentation(numericTokenAsDouble));
         }
     }
