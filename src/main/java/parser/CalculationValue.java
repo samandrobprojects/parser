@@ -40,4 +40,12 @@ public class CalculationValue {
         }
     }
 
+    public Maybe<List<Double>> maybeValueAsListOfDoublesOfLengthOneOrGreater() {
+        if (_listOfDoublesInValue.size() >= 1) {
+            return Maybe.asObject(_listOfDoublesInValue);
+        } else {
+            return Maybe.asNothing();
+        }
+    }
+
 }

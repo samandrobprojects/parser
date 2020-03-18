@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TestClass {
     @Test
     public void evaluatesExpression() {
-        String testString = "nthroot(2, 144)";
+        String testString = "std (10, 12, 23, 23, 16, 23, 21, 16)";
 
         Double resultValue = -1.0;
         try {

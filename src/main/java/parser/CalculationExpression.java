@@ -81,6 +81,9 @@ public class CalculationExpression {
         operationsInRuleset.add(Operations.LOG_OPERATION);
         operationsInRuleset.add(Operations.POW_OPERATION);
         operationsInRuleset.add(Operations.NTHROOT_OPERATION);
+        operationsInRuleset.add(Operations.MEAN_OPERATION);
+        operationsInRuleset.add(Operations.MEDIAN_OPERATION);
+        operationsInRuleset.add(Operations.STD_OPERATION);
 
         //add constant PI
         return CalculationExpressionRuleset.newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndSequenceSeperatorSyntaxAndOperations(

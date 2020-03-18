@@ -4,11 +4,16 @@ import functional.Maybe;
 import functional.Monad;
 import functional.MonadicOperation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Operations {
 
-
+    private static final int BINDING_STRENGTH_LOW = 50;
+    private static final int BINDING_STRENGTH_MEDIUM = 100;
+    private static final int BINDING_STRENGTH_HIGH = 200;
+    private static final int BINDING_STRENGTH_HIGHEST = 250;
+    
 
     public static class Constants {
 
@@ -21,28 +26,28 @@ public class Operations {
 
     }
 
-    public static final Operation<CalculationValue> ADDITION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('+'), 50, new Operation.InfixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ADDITION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('+'), BINDING_STRENGTH_LOW, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
             return Maybe.asObject(givenLeftValue + givenRightValue);
         }
     });
 
-    public static final Operation<CalculationValue> SUBTRACTION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('-'), 50, new Operation.InfixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> SUBTRACTION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('-'), BINDING_STRENGTH_LOW, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
             return Maybe.asObject(givenLeftValue - givenRightValue);
         }
     });
 
-    public static final Operation<CalculationValue> MULTIPLICATION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('*'), 100, new Operation.InfixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> MULTIPLICATION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('*'), BINDING_STRENGTH_MEDIUM, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
             return Maybe.asObject(givenLeftValue * givenRightValue);
         }
     });
 
-    public static final Operation<CalculationValue> DIVISION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('/'), 100, new Operation.InfixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> DIVISION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('/'), BINDING_STRENGTH_MEDIUM, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
             if (givenRightValue == 0) {
@@ -53,7 +58,7 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> MODULO_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('%'), 100, new Operation.InfixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> MODULO_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('%'), BINDING_STRENGTH_MEDIUM, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
             if (givenRightValue == 0) {
@@ -64,28 +69,28 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> SIN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sin"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> SIN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.sin(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> COS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cos"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> COS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.cos(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> TAN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("tan"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> TAN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("tan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.tan(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> COT_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cot"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> COT_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cot"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             Double tangentOfValue = Math.tan(valueToApplyOperation);
@@ -97,7 +102,7 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> SEC_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sec"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> SEC_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sec"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             Double sinOfValue = Math.sin(valueToApplyOperation);
@@ -109,7 +114,7 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> CSC_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("csc"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> CSC_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("csc"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             Double cosOfValue = Math.cos(valueToApplyOperation);
@@ -121,28 +126,28 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> ARCTAN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arctan"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ARCTAN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arctan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.atan(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> ARCSIN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arcsin"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ARCSIN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arcsin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.asin(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> ARCCOS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arccos"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ARCCOS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arccos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.acos(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> ABS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("abs"), 200, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ABS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("abs"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.abs(valueToApplyOperation));
@@ -150,7 +155,7 @@ public class Operations {
     });
 
     public static final Operation<CalculationValue> LOG_OPERATION = Operations.functionOperationWithSyntaxAndBindingStrengthAndNumberOfArgumentsAndFunctionOperationEvaluation(
-            Syntax.identifierSyntaxAsString("log"), 250, 2, new FunctionOperationEvaluation<Double>() {
+            Syntax.identifierSyntaxAsString("log"), BINDING_STRENGTH_HIGHEST, 2, new FunctionOperationEvaluation<Double>() {
                 @Override
                 public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
                     Double x = givenArgumentList.get(0);
@@ -161,7 +166,7 @@ public class Operations {
     );
 
     public static final Operation<CalculationValue> POW_OPERATION = Operations.functionOperationWithSyntaxAndBindingStrengthAndNumberOfArgumentsAndFunctionOperationEvaluation(
-            Syntax.identifierSyntaxAsString("pow"), 250, 2, new FunctionOperationEvaluation<Double>() {
+            Syntax.identifierSyntaxAsString("pow"), BINDING_STRENGTH_HIGHEST, 2, new FunctionOperationEvaluation<Double>() {
                 @Override
                 public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
                     Double num = givenArgumentList.get(0);
@@ -172,7 +177,7 @@ public class Operations {
     );
 
     public static final Operation<CalculationValue> NTHROOT_OPERATION = Operations.functionOperationWithSyntaxAndBindingStrengthAndNumberOfArgumentsAndFunctionOperationEvaluation(
-            Syntax.identifierSyntaxAsString("nthroot"), 250, 2, new FunctionOperationEvaluation<Double>() {
+            Syntax.identifierSyntaxAsString("nthroot"), BINDING_STRENGTH_HIGHEST, 2, new FunctionOperationEvaluation<Double>() {
                 @Override
                 public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
                     Double num = givenArgumentList.get(0);
@@ -185,6 +190,78 @@ public class Operations {
                 }
             }
     );
+
+    public static final Operation<CalculationValue> MEAN_OPERATION = Operations.functionOperationOfVariableArgumentsWithSyntaxAndBindingStrengthAndFunctionOperationEvaluation(
+            Syntax.identifierSyntaxAsString("mean"), BINDING_STRENGTH_HIGHEST, new FunctionOperationEvaluation<Double>() {
+                @Override
+                public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
+                    return Maybe.asObject(_meanOfListOfDoubles(givenArgumentList));
+                }
+            }
+    );
+
+    public static final Operation<CalculationValue> MEDIAN_OPERATION = Operations.functionOperationOfVariableArgumentsWithSyntaxAndBindingStrengthAndFunctionOperationEvaluation(
+            Syntax.identifierSyntaxAsString("median"), BINDING_STRENGTH_HIGHEST, new FunctionOperationEvaluation<Double>() {
+                @Override
+                public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
+                    boolean argumentListIsEvenSize = (givenArgumentList.size() % 2 == 0);
+                    if (argumentListIsEvenSize) {
+                        int rightMiddleIndex = (int)(givenArgumentList.size() / 2.0);
+                        int leftMiddleIndex = rightMiddleIndex - 1;
+                        return Maybe.asObject((givenArgumentList.get(leftMiddleIndex) + givenArgumentList.get(rightMiddleIndex)) / 2.0);
+                    } else {
+                        int middleIndex = (int)Math.floor(givenArgumentList.size() / 2.0);
+                        return Maybe.asObject(givenArgumentList.get(middleIndex));
+                    }
+                }
+            }
+    );
+
+    public static final Operation<CalculationValue> STD_OPERATION = Operations.functionOperationOfVariableArgumentsWithSyntaxAndBindingStrengthAndFunctionOperationEvaluation(
+            Syntax.identifierSyntaxAsString("std"), BINDING_STRENGTH_HIGHEST, new FunctionOperationEvaluation<Double>() {
+                @Override
+                public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
+                    final Double meanOfArgumentList = _meanOfListOfDoubles(givenArgumentList);
+                    List<Double> squredMeanDifferencesOfArgumentList = _mapTransformationToDoublesInList(new DoubleTransformation() {
+                        @Override
+                        public Double applyTransformation(Double inputDouble) {
+                            return (inputDouble - meanOfArgumentList)*(inputDouble - meanOfArgumentList);
+                        }
+                    }, givenArgumentList);
+                    Double standardDeviation = Math.sqrt(_meanOfListOfDoubles(squredMeanDifferencesOfArgumentList));
+                    return Maybe.asObject(standardDeviation);
+                }
+            }
+    );
+
+
+    /**
+            Supporting private functions
+     */
+
+    private static Double _sumOfListOfDoubles(List<Double> givenListOfDoubles) {
+        Double sumOfListOfDoubles = 0.0;
+        for (Double doubleInList : givenListOfDoubles) {
+            sumOfListOfDoubles += doubleInList;
+        }
+        return sumOfListOfDoubles;
+    }
+
+    private static Double _meanOfListOfDoubles(List<Double> givenListOfDoubles) {
+        return _sumOfListOfDoubles(givenListOfDoubles) / (double)givenListOfDoubles.size();
+    }
+
+    private interface DoubleTransformation {
+        public Double applyTransformation(Double inputDouble);
+    }
+
+    private static List<Double> _mapTransformationToDoublesInList(DoubleTransformation givenTransformaation, List<Double> givenListOfDoubles) {
+        ArrayList<Double> transformedDoubles = new ArrayList<>();
+        for (Double doubleInList : givenListOfDoubles) {
+            transformedDoubles.add(givenTransformaation.applyTransformation(doubleInList));
+        }
+        return transformedDoubles;
+    }
 
     private static Operation<CalculationValue> infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax givenSyntax, int bindingStrength, final Operation.InfixOperationEvaluation<Double> infixOperationEvaluation) {
         return Operation.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(givenSyntax, bindingStrength, new Operation.InfixOperationEvaluation<CalculationValue>() {
@@ -233,6 +310,21 @@ public class Operations {
             @Override
             public Maybe<CalculationValue> maybeValueResultOfApplyingPrefixOperationToValue(CalculationValue givenValue) {
                 Maybe<List<Double>> maybeListOfArguments = givenValue.maybeValueAsListOfDoublesOfLengthN(numberOfArguments);
+                return maybeListOfArguments.applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<CalculationValue>, List<Double>, CalculationValue>() {
+                    @Override
+                    public Maybe<CalculationValue> performMonadicOperation(List<Double> listOfArguments) {
+                        return _maybeDoubleToMaybeCalculationValue(functionOperationEvaluation.maybeValueResultOfApplyingFunctionOperationToListOfArguments(listOfArguments));
+                    }
+                });
+            }
+        });
+    }
+
+    private static Operation<CalculationValue> functionOperationOfVariableArgumentsWithSyntaxAndBindingStrengthAndFunctionOperationEvaluation(Syntax givenSyntax, int bindingStrength, final FunctionOperationEvaluation<Double> functionOperationEvaluation) {
+        return Operation.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(givenSyntax, bindingStrength, new Operation.PrefixOperationEvaluation<CalculationValue>() {
+            @Override
+            public Maybe<CalculationValue> maybeValueResultOfApplyingPrefixOperationToValue(CalculationValue givenValue) {
+                Maybe<List<Double>> maybeListOfArguments = givenValue.maybeValueAsListOfDoublesOfLengthOneOrGreater();
                 return maybeListOfArguments.applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<CalculationValue>, List<Double>, CalculationValue>() {
                     @Override
                     public Maybe<CalculationValue> performMonadicOperation(List<Double> listOfArguments) {
