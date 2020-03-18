@@ -35,7 +35,7 @@ public class CalculationExpression {
             SyntaxTreeBuilder syntaxTreeBuilder = SyntaxTreeBuilder.syntaxTreeBuilderWithSyntaxRuleset(calculationExpressionRuleset.getSyntaxRulesetForCalculationExpressions());
 
             SyntaxTree calculationExpressionSyntaxTree = syntaxTreeBuilder.buildSyntaxTreeFromListOfTokens(tokenisedCalculationExpression);
-            System.out.println("evaluateDoubleResultOfCalculationExpressionWithRuleset: " + calculationExpressionSyntaxTree.DEBUG_getStringOfTree());
+            //System.out.println("evaluateDoubleResultOfCalculationExpressionWithRuleset: " + calculationExpressionSyntaxTree.DEBUG_getStringOfTree());
             SyntaxTreeEvaluator<CalculationValue> evaluatorOfCalculationExpression = SyntaxTreeEvaluator.syntaxTreeEvaluatorWithEvaluationRuleset(calculationExpressionRuleset.getEvaluationRulesetForCalculationExpressions());
 
             CalculationValue resultOfCalculationExpression = evaluatorOfCalculationExpression.evaluateSyntaxTree(calculationExpressionSyntaxTree);

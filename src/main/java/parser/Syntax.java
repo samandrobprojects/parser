@@ -7,6 +7,7 @@ import parser.tokeniser.tokens.IdentifierToken;
 import parser.tokeniser.tokens.Token;
 
 public class Syntax {
+
     public static Syntax atomicSyntaxAsCharacter(char givenCharacter) {
         AtomicToken newUniqueAtomicToken = AtomicToken.newUniqueAtomicToken();
         return new Syntax(newUniqueAtomicToken, Maybe.asObject(AcceptedAtomicToken.acceptedAtomicTokenWithTokenAndRepresentativeCharacter(newUniqueAtomicToken, givenCharacter)));
