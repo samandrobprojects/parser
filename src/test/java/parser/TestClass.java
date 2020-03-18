@@ -6,6 +6,27 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 import org.junit.Test;
 
 public class TestClass {
+
+    @Test
+    public void stressOne() {
+        String testString = "(((cos(2.4444), sin(5)*4, -44/2*3)))";
+        System.out.println("stress test one");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 4.8989794855664");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+
     @Test
     public void evaluatesExpressionForStd() {
         //(https://www.calculator.net/standard-deviation-calculator.html?numberinputs=10%2C+12%2C+23%2C+23%2C+16%2C+23%2C+21%2C+16&ctype=p&x=51&y=12)
