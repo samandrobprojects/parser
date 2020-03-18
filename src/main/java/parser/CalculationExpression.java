@@ -36,10 +36,17 @@ public class CalculationExpression {
 
             SyntaxTree calculationExpressionSyntaxTree = syntaxTreeBuilder.buildSyntaxTreeFromListOfTokens(tokenisedCalculationExpression);
             System.out.println("evaluateDoubleResultOfCalculationExpressionWithRuleset: " + calculationExpressionSyntaxTree.DEBUG_getStringOfTree());
-            SyntaxTreeEvaluator<Double> evaluatorOfCalculationExpression = SyntaxTreeEvaluator.syntaxTreeEvaluatorWithEvaluationRuleset(calculationExpressionRuleset.getEvaluationRulesetForCalculationExpressions());
+            SyntaxTreeEvaluator<CalculationValue> evaluatorOfCalculationExpression = SyntaxTreeEvaluator.syntaxTreeEvaluatorWithEvaluationRuleset(calculationExpressionRuleset.getEvaluationRulesetForCalculationExpressions());
 
-            Double resultOfCalculationExpression = evaluatorOfCalculationExpression.evaluateSyntaxTree(calculationExpressionSyntaxTree);
-            return _roundToEaightDecimalPlaces(resultOfCalculationExpression);
+            CalculationValue resultOfCalculationExpression = evaluatorOfCalculationExpression.evaluateSyntaxTree(calculationExpressionSyntaxTree);
+
+            Maybe<Double> maybeDoubleResultOfCalculationExpression = resultOfCalculationExpression.maybeValueAsDouble();
+            if (maybeDoubleResultOfCalculationExpression.isNotNothing()) {
+                return _roundToEaightDecimalPlaces(maybeDoubleResultOfCalculationExpression.object());
+            } else {
+                throw new CalculationExpressionException("resulting value was not a double, possibly incomplete expression");
+            }
+
         } catch (Exception exception) {
             exception.printStackTrace();
             throw new CalculationExpressionException(exception.getMessage());
@@ -53,7 +60,7 @@ public class CalculationExpression {
 
 
     public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET() {
-        ArrayList<Operation<Double>> operationsInRuleset = new ArrayList<>();
+        ArrayList<Operation<CalculationValue>> operationsInRuleset = new ArrayList<>();
 
         operationsInRuleset.add(Operations.Constants.PI_CONSTANT);
         operationsInRuleset.add(Operations.ADDITION_OPERATION);
@@ -72,13 +79,14 @@ public class CalculationExpression {
         operationsInRuleset.add(Operations.SEC_OPERATION);
         operationsInRuleset.add(Operations.ABS_OPERATION);
         operationsInRuleset.add(Operations.LOG_OPERATION);
-        operationsInRuleset.add(Operations.POWER_OPERATION);
-        operationsInRuleset.add(Operations.ROOT_OPERATION);
+        operationsInRuleset.add(Operations.POW_OPERATION);
+        operationsInRuleset.add(Operations.NTHROOT_OPERATION);
 
         //add constant PI
-        return CalculationExpressionRuleset.newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndOperations(
+        return CalculationExpressionRuleset.newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndSequenceSeperatorSyntaxAndOperations(
                 Syntax.atomicSyntaxAsCharacter('('),
                 Syntax.atomicSyntaxAsCharacter(')'),
+                Syntax.atomicSyntaxAsCharacter(','),
                 operationsInRuleset
         );
     }

@@ -18,16 +18,20 @@ import java.util.List;
 public class CalculationExpressionRuleset {
     private final Syntax _beginGroupSyntax;
     private final Syntax _endGroupSyntax;
-    private final List<Operation<Double>> _operations;
+    private final Syntax _sequenceSeperatorSyntax;
+    private final List<Operation<CalculationValue>> _operations;
 
-    public static CalculationExpressionRuleset newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndOperations(Syntax beginGroupSyntax, Syntax endGroupSyntax, List<Operation<Double>> operations) {
-        return new CalculationExpressionRuleset(beginGroupSyntax, endGroupSyntax, operations);
+    private static int BINDING_STREGTH_OF_SEQUENCE_SEPERATOR = 0;
+
+    public static CalculationExpressionRuleset newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndSequenceSeperatorSyntaxAndOperations(Syntax beginGroupSyntax, Syntax endGroupSyntax, Syntax sequenceSeperatorSyntax, List<Operation<CalculationValue>> operations) {
+        return new CalculationExpressionRuleset(beginGroupSyntax, endGroupSyntax, sequenceSeperatorSyntax, operations);
     }
 
-    private CalculationExpressionRuleset(Syntax beginGroupSyntax, Syntax endGroupSyntax, List<Operation<Double>> operations) {
+    private CalculationExpressionRuleset(Syntax beginGroupSyntax, Syntax endGroupSyntax, Syntax sequenceSeperatorSyntax, List<Operation<CalculationValue>> operations) {
         _beginGroupSyntax = beginGroupSyntax;
         _endGroupSyntax = endGroupSyntax;
         _operations = operations;
+        _sequenceSeperatorSyntax = sequenceSeperatorSyntax;
     }
 
 
@@ -44,7 +48,7 @@ public class CalculationExpressionRuleset {
             @Override
             public List<AcceptedAtomicToken> listOfAcceptedAtomicTokensInPriorityOrder() {
                 ArrayList<AcceptedAtomicToken> acceptedAtomicTokensInPriorityOrder = new ArrayList<>();
-                for (Operation<Double> operation : _operations) {
+                for (Operation<CalculationValue> operation : _operations) {
                     Maybe<AcceptedAtomicToken> maybeAtomicTokenRepresentationOfOperation = operation.getSyntaxOfOperation().maybeGetAcceptedAtomicTokenRepresentation();
                     if (maybeAtomicTokenRepresentationOfOperation.isNotNothing()) {
                         acceptedAtomicTokensInPriorityOrder.add(maybeAtomicTokenRepresentationOfOperation.object());
@@ -55,6 +59,9 @@ public class CalculationExpressionRuleset {
                 }
                 if (_endGroupSyntax.maybeGetAcceptedAtomicTokenRepresentation().isNotNothing()) {
                     acceptedAtomicTokensInPriorityOrder.add(_endGroupSyntax.maybeGetAcceptedAtomicTokenRepresentation().object());
+                }
+                if (_sequenceSeperatorSyntax.maybeGetAcceptedAtomicTokenRepresentation().isNotNothing()) {
+                    acceptedAtomicTokensInPriorityOrder.add(_sequenceSeperatorSyntax.maybeGetAcceptedAtomicTokenRepresentation().object());
                 }
                 return acceptedAtomicTokensInPriorityOrder;
             }
@@ -69,10 +76,12 @@ public class CalculationExpressionRuleset {
                     syntaxCategoryClassifier.classfiyAsBeginGrouping();
                 } else if (tokenToClassify.isIdenticalToToken(_endGroupSyntax.getTokenRepresentation())) {
                     syntaxCategoryClassifier.classfiyAsEndGrouping();
+                } else if (tokenToClassify.isIdenticalToToken(_sequenceSeperatorSyntax.getTokenRepresentation())) {
+                    syntaxCategoryClassifier.classfiyAsInfixOperationWithBindingStrength(BINDING_STREGTH_OF_SEQUENCE_SEPERATOR);
                 } else if (tokenToClassify instanceof NumericalToken) {
                     syntaxCategoryClassifier.classifyAsValue();
                 } else {
-                    Maybe<Operation<Double>> maybeOperationMatchingTokenToClassify = _maybeMatchTokenToOperation(tokenToClassify);
+                    Maybe<Operation<CalculationValue>> maybeOperationMatchingTokenToClassify = _maybeMatchTokenToOperation(tokenToClassify);
                     if (maybeOperationMatchingTokenToClassify.isNotNothing()) {
                         maybeOperationMatchingTokenToClassify.object().classifySyntaxOfOperation(syntaxCategoryClassifier);
                     } else {
@@ -83,8 +92,8 @@ public class CalculationExpressionRuleset {
         };
     }
 
-    private Maybe<Operation<Double>> _maybeMatchTokenToOperation(Token givenToken) {
-        for (Operation<Double> operation : _operations) {
+    private Maybe<Operation<CalculationValue>> _maybeMatchTokenToOperation(Token givenToken) {
+        for (Operation<CalculationValue> operation : _operations) {
             boolean tokenToClassifyMatchesSyntaxOfOperation = operation.getSyntaxOfOperation().getTokenRepresentation().isIdenticalToToken(givenToken);
             if (tokenToClassifyMatchesSyntaxOfOperation) {
                 return Maybe.asObject(operation);
@@ -93,14 +102,14 @@ public class CalculationExpressionRuleset {
         return Maybe.asNothing();
     }
 
-    public EvaluationRuleset<Double> getEvaluationRulesetForCalculationExpressions() {
-        return new EvaluationRuleset<Double>() {
+    public EvaluationRuleset<CalculationValue> getEvaluationRulesetForCalculationExpressions() {
+        return new EvaluationRuleset<CalculationValue>() {
             @Override
-            public Maybe<Double> maybeValueRepresentationOfValueToken(Token givenToken) {
+            public Maybe<CalculationValue> maybeValueRepresentationOfValueToken(Token givenToken) {
                 if (givenToken instanceof NumericalToken) {
-                    return Maybe.asObject(((NumericalToken)givenToken).getDoubleRepresentationOfNumericalToken());
+                    return Maybe.asObject(CalculationValue.calculationValueAsDouble(((NumericalToken)givenToken).getDoubleRepresentationOfNumericalToken()));
                 } else {
-                    Maybe<Operation<Double>> maybeOperationForGivenToken = _maybeMatchTokenToOperation(givenToken);
+                    Maybe<Operation<CalculationValue>> maybeOperationForGivenToken = _maybeMatchTokenToOperation(givenToken);
                     if (maybeOperationForGivenToken.isNotNothing()) {
                         return maybeOperationForGivenToken.object().maybeValueResultOfEvaluatingAsConstantToValue();
                     }
@@ -108,22 +117,26 @@ public class CalculationExpressionRuleset {
                 }
             }
             @Override
-            public Maybe<Double> maybeValueResultOfApplyingPrefixTokenToValue(Token givenPrefixToken, final Double givenValue) {
-                return _maybeMatchTokenToOperation(givenPrefixToken).applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<Double>, Operation<Double>, Double>() {
+            public Maybe<CalculationValue> maybeValueResultOfApplyingPrefixTokenToValue(Token givenPrefixToken, final CalculationValue givenValue) {
+                return _maybeMatchTokenToOperation(givenPrefixToken).applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<CalculationValue>, Operation<CalculationValue>, CalculationValue>() {
                     @Override
-                    public Maybe<Double> performMonadicOperation(Operation<Double> operationCorrespondingToGivenPrefixToken) {
+                    public Maybe<CalculationValue> performMonadicOperation(Operation<CalculationValue> operationCorrespondingToGivenPrefixToken) {
                         return operationCorrespondingToGivenPrefixToken.maybeValueResultOfApplyingAsPrefixOperationToValue(givenValue);
                     }
                 });
             }
             @Override
-            public Maybe<Double> maybeValueResultOfApplyingInfixTokenToLeftAndRightValue(Token givenInfixToken, Double givenLeftValue, Double givenRightValue) {
-                return _maybeMatchTokenToOperation(givenInfixToken).applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<Double>, Operation<Double>, Double>() {
-                    @Override
-                    public Maybe<Double> performMonadicOperation(Operation<Double> operationCorrespondingToGivenInfixToken) {
-                        return operationCorrespondingToGivenInfixToken.maybeValueResultOfApplyingAsInfixOperationToLeftAndRightValue(givenLeftValue, givenRightValue);
-                    }
-                });
+            public Maybe<CalculationValue> maybeValueResultOfApplyingInfixTokenToLeftAndRightValue(Token givenInfixToken, CalculationValue givenLeftValue, CalculationValue givenRightValue) {
+                if (givenInfixToken.isIdenticalToToken(_sequenceSeperatorSyntax.getTokenRepresentation())) {
+                    return Maybe.asObject(CalculationValue.calculationValueByConcatenatingValueToValue(givenLeftValue, givenRightValue));
+                } else {
+                    return _maybeMatchTokenToOperation(givenInfixToken).applyGivenOperationOntoThisObjectMondically(new MonadicOperation<Monad<CalculationValue>, Operation<CalculationValue>, CalculationValue>() {
+                        @Override
+                        public Maybe<CalculationValue> performMonadicOperation(Operation<CalculationValue> operationCorrespondingToGivenInfixToken) {
+                            return operationCorrespondingToGivenInfixToken.maybeValueResultOfApplyingAsInfixOperationToLeftAndRightValue(givenLeftValue, givenRightValue);
+                        }
+                    });
+                }
             }
         };
     }

@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TestClass {
     @Test
     public void evaluatesExpression() {
-        String testString = "sin (PI +1)";
+        String testString = "nthroot(2, 144)";
 
         Double resultValue = -1.0;
         try {
