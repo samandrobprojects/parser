@@ -97,7 +97,7 @@
       <recent name="parser.syntax_tree" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.TestClass.stressOne">
+  <component name="RunManager" selected="Gradle.TestClass.stressTwo">
     <configuration name="TestClass" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -158,26 +158,6 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TestClass.evaluatesExpressionForStd" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;parser.TestClass.evaluatesExpressionForStd&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="TestClass.stressOne" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -198,13 +178,33 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="TestClass.stressTwo" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;parser.TestClass.stressTwo&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TestClass.stressOne" />
+        <item itemvalue="Gradle.TestClass.stressTwo" />
         <item itemvalue="Gradle.TestClass" />
+        <item itemvalue="Gradle.TestClass.stressOne" />
         <item itemvalue="Gradle.TestClass.evaluatesExpressionForMedian" />
         <item itemvalue="Gradle.TestClass.evaluatesExpressionForMean" />
-        <item itemvalue="Gradle.TestClass.evaluatesExpressionForStd" />
       </list>
     </recent_temporary>
   </component>
@@ -235,22 +235,22 @@
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="674" y="182" key="#parser_[build]/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584506606272" />
-    <state width="1868" height="282" key="GridCell.Tab.0.bottom" timestamp="1584527487685">
+    <state width="1868" height="282" key="GridCell.Tab.0.bottom" timestamp="1584527829499">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1868" height="282" key="GridCell.Tab.0.bottom/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527487685" />
-    <state width="1868" height="282" key="GridCell.Tab.0.center" timestamp="1584527487683">
+    <state width="1868" height="282" key="GridCell.Tab.0.bottom/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527829499" />
+    <state width="1868" height="282" key="GridCell.Tab.0.center" timestamp="1584527829498">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1868" height="282" key="GridCell.Tab.0.center/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527487683" />
-    <state width="1868" height="282" key="GridCell.Tab.0.left" timestamp="1584527487681">
+    <state width="1868" height="282" key="GridCell.Tab.0.center/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527829498" />
+    <state width="1868" height="282" key="GridCell.Tab.0.left" timestamp="1584527829497">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1868" height="282" key="GridCell.Tab.0.left/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527487681" />
-    <state width="1868" height="282" key="GridCell.Tab.0.right" timestamp="1584527487684">
+    <state width="1868" height="282" key="GridCell.Tab.0.left/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527829497" />
+    <state width="1868" height="282" key="GridCell.Tab.0.right" timestamp="1584527829498">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
-    <state width="1868" height="282" key="GridCell.Tab.0.right/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527487684" />
+    <state width="1868" height="282" key="GridCell.Tab.0.right/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584527829498" />
     <state width="1868" height="355" key="GridCell.Tab.1.bottom" timestamp="1584512402913">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
