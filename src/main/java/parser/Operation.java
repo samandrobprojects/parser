@@ -16,6 +16,10 @@ public class Operation<VALUE> {
         public Maybe<VALUE> maybeValueResultOfApplyingPrefixOperationToValue(VALUE givenValue);
     }
 
+    public interface ConstantOperationEvaluation<VALUE> {
+        public Maybe<VALUE> maybeValueResultOfEvaluatingConstantToValue();
+    }
+
     public static <VALUE> Operation<VALUE> infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax givenSyntax, int bindingStrength, InfixOperationEvaluation<VALUE> infixOperationEvaluation) {
         return new Operation<>(givenSyntax, bindingStrength, Maybe.asNothing(), Maybe.asObject(infixOperationEvaluation));
     }
@@ -25,9 +29,15 @@ public class Operation<VALUE> {
 
     }
 
+    public static <VALUE> Operation<VALUE> constantOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax givenSyntax, int bindingStrength, PrefixOperationEvaluation<VALUE> prefixOperationEvaluation) {
+        return new Operation<>(givenSyntax, bindingStrength, Maybe.asObject(prefixOperationEvaluation), Maybe.asNothing());
+
+    }
+
     private final Syntax _givenSyntax;
     private final int _bindingStrength;
     private final Maybe<PrefixOperationEvaluation<VALUE>> _maybePrefixOperationEvaluation;
+    private final Maybe<InfixOperationEvaluation<VALUE>> _maybeInfixOperationEvaluation;
     private final Maybe<InfixOperationEvaluation<VALUE>> _maybeInfixOperationEvaluation;
 
     private Operation(Syntax givenSyntax, int bindingStrength, Maybe<PrefixOperationEvaluation<VALUE>> maybePrefixOperationEvaluation, Maybe<InfixOperationEvaluation<VALUE>> maybeInfixOperationEvaluation) {

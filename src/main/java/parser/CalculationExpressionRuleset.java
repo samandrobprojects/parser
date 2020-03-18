@@ -21,7 +21,7 @@ public class CalculationExpressionRuleset {
     private final List<Operation<Double>> _operations;
 
     public static CalculationExpressionRuleset newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndOperations(Syntax beginGroupSyntax, Syntax endGroupSyntax, List<Operation<Double>> operations) {
-        return null;
+        return new CalculationExpressionRuleset(beginGroupSyntax, endGroupSyntax, operations);
     }
 
     private CalculationExpressionRuleset(Syntax beginGroupSyntax, Syntax endGroupSyntax, List<Operation<Double>> operations) {
@@ -49,7 +49,12 @@ public class CalculationExpressionRuleset {
                     if (maybeAtomicTokenRepresentationOfOperation.isNotNothing()) {
                         acceptedAtomicTokensInPriorityOrder.add(maybeAtomicTokenRepresentationOfOperation.object());
                     }
-
+                }
+                if (_beginGroupSyntax.maybeGetAcceptedAtomicTokenRepresentation().isNotNothing()) {
+                    acceptedAtomicTokensInPriorityOrder.add(_beginGroupSyntax.maybeGetAcceptedAtomicTokenRepresentation().object());
+                }
+                if (_endGroupSyntax.maybeGetAcceptedAtomicTokenRepresentation().isNotNothing()) {
+                    acceptedAtomicTokensInPriorityOrder.add(_endGroupSyntax.maybeGetAcceptedAtomicTokenRepresentation().object());
                 }
                 return acceptedAtomicTokensInPriorityOrder;
             }

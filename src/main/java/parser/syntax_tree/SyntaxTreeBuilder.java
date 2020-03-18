@@ -27,7 +27,8 @@ public class SyntaxTreeBuilder {
             _introduceNewTokenIntoTreeCurrentlyBeingBuilt(nextTokenToBuildSyntaxTree);
         }
         if (!_rootOfSyntaxTreeBeingBuilt.syntaxTreeIsComplete()) {
-            throw  new SyntaxTreeBuilderException("cannot parse, invalid syntax, is not complete");
+            System.out.println("buildSyntaxTreeFromListOfTokens: " +  _rootOfSyntaxTreeBeingBuilt.DEBUG_getStringOfTree());
+            throw new SyntaxTreeBuilderException("cannot parse, invalid syntax, is not complete");
         }
         return _rootOfSyntaxTreeBeingBuilt;
     }
@@ -91,17 +92,15 @@ public class SyntaxTreeBuilder {
     }
 
     private void _introduceEndGroupInSyntaxTreeCurrentlyBeingBuilt() {
-        if (_currentTreePositionInSyntaxTreeBeingBuilt.getClassification() == SyntaxTree.Classification.GROUPING) {
-            throw new SyntaxTreeBuilderException("invalid syntax, empty grouping");
-
-        } else if (_currentTreePositionInSyntaxTreeBeingBuilt.getClassification() == SyntaxTree.Classification.VALUE) {
-            while (_currentTreePositionInSyntaxTreeBeingBuilt.getClassification() != SyntaxTree.Classification.GROUPING) {
+        if (_currentTreePositionInSyntaxTreeBeingBuilt.getClassification() == SyntaxTree.Classification.VALUE
+            || _currentTreePositionInSyntaxTreeBeingBuilt.getClassification() == SyntaxTree.Classification.GROUPING) {
+            do {
                 if (_currentTreePositionInSyntaxTreeBeingBuilt.maybeGetParentTree().isNotNothing()) {
                     _currentTreePositionInSyntaxTreeBeingBuilt = _currentTreePositionInSyntaxTreeBeingBuilt.maybeGetParentTree().object();
                 } else {
                     throw new SyntaxTreeBuilderException("invalid syntax, grouping ended badly");
                 }
-            }
+            } while (_currentTreePositionInSyntaxTreeBeingBuilt.getClassification() != SyntaxTree.Classification.GROUPING);
 
         } else {
             throw new SyntaxTreeBuilderException("invalid syntax, unexpected grouping end");

@@ -29,50 +29,59 @@ public class CalculationExpression {
     public double evaluateDoubleResultOfCalculationExpressionWithRuleset(CalculationExpressionRuleset calculationExpressionRuleset) throws CalculationExpressionException {
         try {
             Tokeniser tokeniser = Tokeniser.createTokeniserWithTokeniserRuleset(calculationExpressionRuleset.getTokeniserRulesetForCalculationExpressions());
+
             List<Token> tokenisedCalculationExpression = tokeniser.tokeniseStringIntoListOfTokens(_calculationExpressionString);
+
             SyntaxTreeBuilder syntaxTreeBuilder = SyntaxTreeBuilder.syntaxTreeBuilderWithSyntaxRuleset(calculationExpressionRuleset.getSyntaxRulesetForCalculationExpressions());
+
             SyntaxTree calculationExpressionSyntaxTree = syntaxTreeBuilder.buildSyntaxTreeFromListOfTokens(tokenisedCalculationExpression);
+            System.out.println("evaluateDoubleResultOfCalculationExpressionWithRuleset: " + calculationExpressionSyntaxTree.DEBUG_getStringOfTree());
             SyntaxTreeEvaluator<Double> evaluatorOfCalculationExpression = SyntaxTreeEvaluator.syntaxTreeEvaluatorWithEvaluationRuleset(calculationExpressionRuleset.getEvaluationRulesetForCalculationExpressions());
+
             Double resultOfCalculationExpression = evaluatorOfCalculationExpression.evaluateSyntaxTree(calculationExpressionSyntaxTree);
+
             return resultOfCalculationExpression;
         } catch (Exception exception) {
-            throw new CalculationExpressionException(exception.getLocalizedMessage());
+            exception.printStackTrace();
+            throw new CalculationExpressionException(exception.getMessage());
         }
     }
 
 
-    public static CalculationExpressionRuleset calculationRulesetTest() {
+    public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET() {
         ArrayList<Operation<Double>> operationsInRuleset = new ArrayList<>();
 
-        operationsInRuleset.add(Operation.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('+'), 50, new Operation.InfixOperationEvaluation<Double>() {
-            @Override
-            public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
-                return Maybe.asObject(givenLeftValue + givenRightValue);
-            }
-        }));
+        operationsInRuleset.add(Operations.ADDITION_OPERATION);
+        operationsInRuleset.add(Operations.SUBTRACTION_OPERATION);
+        operationsInRuleset.add(Operations.MULTIPLICATION_OPERATION);
+        operationsInRuleset.add(Operations.DIVISION_OPERATION);
+        operationsInRuleset.add(Operations.MODULO_OPERATION);
+        operationsInRuleset.add(Operations.SIN_OPERATION);
+        operationsInRuleset.add(Operations.COS_OPERATION);
+        operationsInRuleset.add(Operations.TAN_OPERATION);
+        operationsInRuleset.add(Operations.ARCCOS_OPERATION);
+        operationsInRuleset.add(Operations.ARCSIN_OPERATION);
+        operationsInRuleset.add(Operations.ARCTAN_OPERATION);
+        operationsInRuleset.add(Operations.COT_OPERATION);
+        operationsInRuleset.add(Operations.CSC_OPERATION);
+        operationsInRuleset.add(Operations.SEC_OPERATION);
+        operationsInRuleset.add(Operations.ABS_OPERATION);
+        operationsInRuleset.add(Operations.LOG_OPERATION);
+        operationsInRuleset.add(Operations.POWER_OPERATION);
+        operationsInRuleset.add(Operations.ROOT_OPERATION);
 
-        operationsInRuleset.add(Operation.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('/'), 100, new Operation.InfixOperationEvaluation<Double>() {
-            @Override
-            public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
-                if (givenRightValue == 0) {
-                    return Maybe.asNothing();
-                } else {
-                    return Maybe.asObject(givenLeftValue / givenRightValue);
-                }
-            }
-        }));
-
-        operationsInRuleset.add(Operation.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cos"), 200, new Operation.PrefixOperationEvaluation<Double>() {
-            @Override
-            public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double givenValue) {
-                return Maybe.asObject(Math.cos(givenValue));
-            }
-        }));
-
+        //add constant PI
         return CalculationExpressionRuleset.newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndOperations(
                 Syntax.atomicSyntaxAsCharacter('('),
                 Syntax.atomicSyntaxAsCharacter(')'),
                 operationsInRuleset
         );
+    }
+
+
+
+    public static Double evaluateStringExpression(String stringExpression) throws CalculationExpressionException {
+        return CalculationExpression.calculationExpressionWithString(stringExpression)
+                .evaluateDoubleResultOfCalculationExpressionWithRuleset(CalculationExpression.GENERAL_CALCULATION_RULESET());
     }
 }

@@ -13,6 +13,26 @@ public class SyntaxTree {
         GROUPING
     }
 
+    public String DEBUG_getStringOfTree() {
+        String debugStringOfTree = "";
+        switch (_classification) {
+            case GROUPING: debugStringOfTree += "GROUPING"; break;
+            case INFIX_OPERATION: debugStringOfTree += "INFIX_OPERATION"; break;
+            case VALUE: debugStringOfTree += "VALUE"; break;
+            case PREFIX_OPERATION: debugStringOfTree += "PREFIX_OPERATION"; break;
+        }
+        debugStringOfTree += "("+String.valueOf(_bindingStrength)+"){ ";
+        if (maybeGetLeftChildTree().isNotNothing()) {
+            debugStringOfTree += maybeGetLeftChildTree().object().DEBUG_getStringOfTree();
+        }
+        debugStringOfTree += ", ";
+        if (maybeGetRightChildTree().isNotNothing()) {
+            debugStringOfTree += maybeGetRightChildTree().object().DEBUG_getStringOfTree();
+        }
+        debugStringOfTree += " }";
+        return debugStringOfTree;
+    }
+
     private final int _bindingStrength;
     private final Token _rootToken;
     private final Classification _classification;
@@ -54,7 +74,7 @@ public class SyntaxTree {
 
     public boolean syntaxTreeIsComplete() {
         boolean expectingLeftTree = (_classification == Classification.GROUPING || _classification == Classification.PREFIX_OPERATION || _classification == Classification.INFIX_OPERATION);
-        boolean expectingRightTree = (_classification == Classification.PREFIX_OPERATION);
+        boolean expectingRightTree = (_classification == Classification.INFIX_OPERATION);
         return _treeExistanceExpectectationMatchesMaybeTree(expectingLeftTree, this.maybeGetLeftChildTree())
                 && _treeExistanceExpectectationMatchesMaybeTree(expectingRightTree, this.maybeGetRightChildTree());
     }
@@ -77,9 +97,9 @@ public class SyntaxTree {
         _classification = classification;
     }
 
-    private Maybe<SyntaxTree> _maybeParentTree;
-    private Maybe<SyntaxTree> _maybeLeftChild;
-    private Maybe<SyntaxTree> _maybeRightChild;
+    private Maybe<SyntaxTree> _maybeParentTree = Maybe.asNothing();
+    private Maybe<SyntaxTree> _maybeLeftChild = Maybe.asNothing();
+    private Maybe<SyntaxTree> _maybeRightChild = Maybe.asNothing();
 
     public void setParentTree(SyntaxTree givenTree) {
         _maybeParentTree = Maybe.asObject(givenTree);

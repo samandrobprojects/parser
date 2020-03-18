@@ -56,6 +56,8 @@ public class Tokeniser {
     private void _tokeniseEmitterCharacterStreamAndProvideTokensToReceiver(Emitter<Character> characterEmitter, TokenReceiver tokenReceiver) throws TokeniserException {
         _startRoundOfTokenisingWithCharacterEmitterAndTokenReceiver(characterEmitter, tokenReceiver);
         while (_characterEmitter.hasMoreToEmit()) {
+            System.out.print("Character this round: ");
+            System.out.println(_characterEmitter.maybePeekAtNext().object());
             if (_tokeniserAcceptsNumericalTokens) {
                 _tokeniseNextNumericalTokenIfExists();
             }
@@ -69,6 +71,7 @@ public class Tokeniser {
             if (_characterEmitter.hasMoreToEmit() && !_tokenHasBeenParsedThisRoundOfTokenising()) {
                 throw new TokeniserException("cannot parse");
             }
+            _startRoundOfTokenisingWithCharacterEmitterAndTokenReceiver(characterEmitter, tokenReceiver);
         }
     }
 
@@ -101,7 +104,9 @@ public class Tokeniser {
 
     private void _tokeniseNextAtomicTokenIfExists() {
         Maybe<AcceptedAtomicToken> firstAcceptedAtomicToken = _maybeConsumeNextAcceptedAtomicTokenInPriorityListOrderIfExists();
+        System.out.println("_tokeniseNextAtomicTokenIfExists: atomomin");
         if (firstAcceptedAtomicToken.isNotNothing()) {
+            System.out.println("_tokeniseNextAtomicTokenIfExists: accepted atomomin");
             _provideNextToken(firstAcceptedAtomicToken.object().getAtomicTokenRepresentation());
         }
     }
@@ -109,6 +114,7 @@ public class Tokeniser {
     private Maybe<AcceptedAtomicToken> _maybeConsumeNextAcceptedAtomicTokenInPriorityListOrderIfExists() {
         for (AcceptedAtomicToken acceptedAtomicToken : _listOfAcceptedAtomicTokensInPriorityOrder) {
             Character firstCharacterOfAtomicToken = acceptedAtomicToken.getFirstCharacterOfAtomicToken();
+            System.out.printf("_maybeConsumeNextAcceptedAtomicTokenInPriorityListOrderIfExists: char %c\n",firstCharacterOfAtomicToken);
             Maybe<Character> maybeSecondCharacterOfAtomicToken = acceptedAtomicToken.maybeGetSecondCharacterOfAtomicToken();
             boolean acceptedAtomicTokenIsNextToken = _nextEmittedCharacterIsIdenticalTo(firstCharacterOfAtomicToken) && (maybeSecondCharacterOfAtomicToken.isNothing() || _nextOverEmittedCharacterIsIdenticalToCharaterInsideMaybe(maybeSecondCharacterOfAtomicToken));
             if (acceptedAtomicTokenIsNextToken) {
@@ -116,6 +122,7 @@ public class Tokeniser {
                 if (maybeSecondCharacterOfAtomicToken.isNotNothing()) {
                     _consumeNextEmittedCharacter();
                 }
+                _provideNextToken(acceptedAtomicToken.getAtomicTokenRepresentation());
             }
         }
         return Maybe.asNothing();

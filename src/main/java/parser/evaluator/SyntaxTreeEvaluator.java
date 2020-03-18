@@ -1,6 +1,5 @@
 package parser.evaluator;
 
-import com.sun.tools.corba.se.idl.constExpr.EvaluationException;
 import functional.Maybe;
 import functional.Monad;
 import functional.MonadicOperation;
@@ -22,12 +21,12 @@ public class SyntaxTreeEvaluator<EVALUATED_VALUE> {
         _evaluationRuleset = evaluationRuleset;
     }
 
-    public EVALUATED_VALUE evaluateSyntaxTree(SyntaxTree syntaxTreeToEvaluate) throws EvaluationException {
+    public EVALUATED_VALUE evaluateSyntaxTree(SyntaxTree syntaxTreeToEvaluate) throws SyntaxTreeEvaluatorException {
         Maybe<EVALUATED_VALUE> maybeEvaulatedValue = _maybeEvaluateSyntaxTree(syntaxTreeToEvaluate);
         if (maybeEvaulatedValue.isNotNothing()) {
             return maybeEvaulatedValue.object();
         } else {
-            throw new EvaluationException("evaluation failed");
+            throw new SyntaxTreeEvaluatorException("evaluation failed");
         }
     }
 
