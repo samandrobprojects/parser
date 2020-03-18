@@ -1,8 +1,6 @@
 package parser.evaluator;
 
-import functional.Maybe;
-import functional.Monad;
-import functional.MonadicOperation;
+import parser.functional.*;
 import parser.syntax_tree.SyntaxTree;
 import parser.tokeniser.TokeniserRuleset;
 import parser.tokeniser.TokeniserException;

@@ -1,8 +1,6 @@
 package parser;
 
-import functional.Maybe;
-import functional.Monad;
-import functional.MonadicOperation;
+import parser.functional.*;
 
 import java.util.ArrayList;
 import java.util.List;

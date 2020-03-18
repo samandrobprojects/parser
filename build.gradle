@@ -11,15 +11,11 @@ plugins {
     id 'java-library'
 }
 
-def functionalLibraryVersion = '1.0.0'
-
 repositories {
-    mavenLocal()
     jcenter()
 }
 
 dependencies {
-    implementation "com.samandrob.libraries:functional:${functionalLibraryVersion}"
     api 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.

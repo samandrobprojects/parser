@@ -1,6 +1,6 @@
 package parser.syntax_tree;
 
-import functional.Maybe;
+import parser.functional.*;
 import parser.tokeniser.tokens.AtomicToken;
 import parser.tokeniser.tokens.Token;
 

@@ -1,9 +1,7 @@
 package parser.tokeniser;
 
-import functional.Maybe;
-import functional.Monad;
-import functional.MonadicOperation;
 import parser.Emitter;
+import parser.functional.*;
 import parser.tokeniser.tokens.IdentifierToken;
 import parser.tokeniser.tokens.NumericalToken;
 import parser.tokeniser.tokens.Token;

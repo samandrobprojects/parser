@@ -1,6 +1,6 @@
 package parser;
 
-import functional.Maybe;
+import parser.functional.*;
 
 import java.util.*;
 

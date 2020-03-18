@@ -1,6 +1,6 @@
 package parser;
 
-import functional.Maybe;
+import parser.functional.*;
 import parser.evaluator.EvaluationRuleset;
 import parser.evaluator.SyntaxTreeEvaluator;
 import parser.syntax_tree.SyntaxRuleset;

@@ -1,6 +1,6 @@
 package parser.evaluator;
 
-import functional.Maybe;
+import parser.functional.Maybe;
 import parser.tokeniser.AcceptedAtomicToken;
 import parser.tokeniser.tokens.Token;
 

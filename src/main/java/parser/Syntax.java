@@ -1,6 +1,6 @@
 package parser;
 
-import functional.Maybe;
+import parser.functional.*;
 import parser.tokeniser.AcceptedAtomicToken;
 import parser.tokeniser.tokens.AtomicToken;
 import parser.tokeniser.tokens.IdentifierToken;

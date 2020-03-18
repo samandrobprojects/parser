@@ -3,6 +3,7 @@ package parser.syntax_tree;
 import parser.tokeniser.TokeniserException;
 import parser.tokeniser.tokens.AtomicToken;
 import parser.tokeniser.tokens.Token;
+import parser.functional.Maybe;
 
 import java.util.List;
 

@@ -1,8 +1,6 @@
 package parser;
 
-import functional.Maybe;
-import functional.Monad;
-import functional.MonadicOperation;
+import parser.functional.*;
 import parser.syntax_tree.SyntaxRuleset;
 import parser.tokeniser.tokens.Token;
 
