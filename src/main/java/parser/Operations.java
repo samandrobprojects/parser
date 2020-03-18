@@ -3,6 +3,8 @@ package parser;
 import parser.functional.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Operations {
@@ -203,13 +205,15 @@ public class Operations {
                 @Override
                 public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
                     boolean argumentListIsEvenSize = (givenArgumentList.size() % 2 == 0);
+                    List<Double> sortedArgumentList = new ArrayList<>(givenArgumentList);
+                    Collections.sort(sortedArgumentList);
                     if (argumentListIsEvenSize) {
-                        int rightMiddleIndex = (int)(givenArgumentList.size() / 2.0);
+                        int rightMiddleIndex = (int)(sortedArgumentList.size() / 2.0);
                         int leftMiddleIndex = rightMiddleIndex - 1;
-                        return Maybe.asObject((givenArgumentList.get(leftMiddleIndex) + givenArgumentList.get(rightMiddleIndex)) / 2.0);
+                        return Maybe.asObject((sortedArgumentList.get(leftMiddleIndex) + sortedArgumentList.get(rightMiddleIndex)) / 2.0);
                     } else {
-                        int middleIndex = (int)Math.floor(givenArgumentList.size() / 2.0);
-                        return Maybe.asObject(givenArgumentList.get(middleIndex));
+                        int middleIndex = (int)Math.floor(sortedArgumentList.size() / 2.0);
+                        return Maybe.asObject(sortedArgumentList.get(middleIndex));
                     }
                 }
             }

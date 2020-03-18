@@ -7,10 +7,10 @@ import org.junit.Test;
 
 public class TestClass {
     @Test
-    public void evaluatesExpression() {
-        //String testString = "std (10, 12, 23, 23, 16, 23, 21, 16)";
+    public void evaluatesExpressionForStd() {
+        //(https://www.calculator.net/standard-deviation-calculator.html?numberinputs=10%2C+12%2C+23%2C+23%2C+16%2C+23%2C+21%2C+16&ctype=p&x=51&y=12)
+        String testString = "std (10, 12, 23, 23, 16, 23, 21, 16)";
         System.out.println("First test");
-        String testString = "std(2.5)";
         Double resultValue = -1.0;
         try {
             resultValue = CalculationExpression.evaluateStringExpression(testString);
@@ -20,6 +20,45 @@ public class TestClass {
         }
         System.out.print("result: ");
         System.out.println(resultValue);
+        System.out.println("wolframalpha: 4.8989794855664");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void evaluatesExpressionForMean() {
+        String testString = "mean (10, 12, 23, 23, 16, 23, 21, 16)";
+        System.out.println("Second test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 18");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void evaluatesExpressionForMedian() {
+        String testString = "median (10, 12, 23, 23, 16, 23, 21, 16)";
+        System.out.println("Third test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 18.5");
         System.out.println("done.");
 
         assertEquals(6, 6);
