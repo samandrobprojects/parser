@@ -169,9 +169,6 @@ public class Operations {
                 public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
                     Double num = givenArgumentList.get(0);
                     Double power = givenArgumentList.get(1);
-                    System.out.println("args");
-                    System.out.println(num);
-                    System.out.println(power);
                     return Maybe.asObject(Math.pow(num, power));
                 }
             }

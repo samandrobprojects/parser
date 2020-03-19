@@ -42,7 +42,6 @@ public class CalculationExpression {
             }
 
         } catch (Exception exception) {
-            exception.printStackTrace();
             throw new CalculationExpressionException(exception.getMessage());
         }
     }
@@ -51,7 +50,6 @@ public class CalculationExpression {
         Double roundingBase = 100000000.0;
         return Math.round(doubleToReound * roundingBase) / roundingBase;
     }
-
 
     public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET() {
         ArrayList<Operation<CalculationValue>> operationsInRuleset = new ArrayList<>();

@@ -30,7 +30,6 @@ public class CalculationExpressionRuleset {
         _sequenceSeperatorSyntax = sequenceSeperatorSyntax;
     }
 
-
     public TokeniserRuleset getTokeniserRulesetForCalculationExpressions() {
         return new TokeniserRuleset() {
             @Override
