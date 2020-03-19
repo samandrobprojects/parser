@@ -34,6 +34,10 @@ public class Operations {
     public static final Operation<CalculationValue> SUBTRACTION_OPERATION = Operations.infixOperationWithSyntaxAndBindingStrengthAndInfixOperationEvaluation(Syntax.atomicSyntaxAsCharacter('-'), BINDING_STRENGTH_LOW, new Operation.InfixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingInfixOperationToLeftAndRightValue(Double givenLeftValue, Double givenRightValue) {
+            System.out.println("HELLO");
+            System.out.println(givenLeftValue);
+            System.out.println(givenRightValue);
+            System.out.println(givenLeftValue - givenRightValue);
             return Maybe.asObject(givenLeftValue - givenRightValue);
         }
     });
@@ -67,28 +71,52 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> SIN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> SIN_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.sin(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> COS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> SIN_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            return Maybe.asObject(Math.sin(valueToApplyOperationInRadians));
+        }
+    });
+
+    public static final Operation<CalculationValue> COS_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.cos(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> TAN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("tan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> COS_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            return Maybe.asObject(Math.cos(valueToApplyOperationInRadians));
+        }
+    });
+
+    public static final Operation<CalculationValue> TAN_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("tan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.tan(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> COT_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cot"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> TAN_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("tan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            return Maybe.asObject(Math.tan(valueToApplyOperationInRadians));
+        }
+    });
+
+    public static final Operation<CalculationValue> COT_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cot"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             Double tangentOfValue = Math.tan(valueToApplyOperation);
@@ -100,7 +128,20 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> SEC_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sec"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> COT_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("cot"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            Double tangentOfValue = Math.tan(valueToApplyOperationInRadians);
+            if (tangentOfValue != 0.0) {
+                return Maybe.asObject(1.0 / tangentOfValue);
+            } else {
+                return Maybe.asNothing();
+            }
+        }
+    });
+
+    public static final Operation<CalculationValue> SEC_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sec"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             Double sinOfValue = Math.sin(valueToApplyOperation);
@@ -112,7 +153,20 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> CSC_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("csc"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> SEC_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("sec"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            Double sinOfValue = Math.sin(valueToApplyOperationInRadians);
+            if (sinOfValue != 0.0) {
+                return Maybe.asObject(1.0 / sinOfValue);
+            } else {
+                return Maybe.asNothing();
+            }
+        }
+    });
+
+    public static final Operation<CalculationValue> CSC_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("csc"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             Double cosOfValue = Math.cos(valueToApplyOperation);
@@ -124,24 +178,61 @@ public class Operations {
         }
     });
 
-    public static final Operation<CalculationValue> ARCTAN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arctan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> CSC_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("csc"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            Double cosOfValue = Math.cos(valueToApplyOperationInRadians);
+            if (cosOfValue != 0.0) {
+                return Maybe.asObject(1.0 / cosOfValue);
+            } else {
+                return Maybe.asNothing();
+            }
+        }
+    });
+
+    public static final Operation<CalculationValue> ARCTAN_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arctan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.atan(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> ARCSIN_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arcsin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ARCTAN_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arctan"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            return Maybe.asObject(Math.atan(valueToApplyOperationInRadians));
+        }
+    });
+
+    public static final Operation<CalculationValue> ARCSIN_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arcsin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.asin(valueToApplyOperation));
         }
     });
 
-    public static final Operation<CalculationValue> ARCCOS_OPERATION = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arccos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+    public static final Operation<CalculationValue> ARCSIN_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arcsin"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            return Maybe.asObject(Math.asin(valueToApplyOperationInRadians));
+        }
+    });
+
+    public static final Operation<CalculationValue> ARCCOS_OPERATION_IN_RADIANS = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arccos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
         @Override
         public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperation) {
             return Maybe.asObject(Math.acos(valueToApplyOperation));
+        }
+    });
+
+    public static final Operation<CalculationValue> ARCCOS_OPERATION_IN_DEGREES = Operations.prefixOperationWithSyntaxAndBindingStrengthAndPrefixOperationEvaluation(Syntax.identifierSyntaxAsString("arccos"), BINDING_STRENGTH_HIGH, new Operation.PrefixOperationEvaluation<Double>() {
+        @Override
+        public Maybe<Double> maybeValueResultOfApplyingPrefixOperationToValue(Double valueToApplyOperationInDegrees) {
+            Double valueToApplyOperationInRadians = Math.toRadians(valueToApplyOperationInDegrees);
+            return Maybe.asObject(Math.acos(valueToApplyOperationInRadians));
         }
     });
 

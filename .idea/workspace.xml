@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5e87716-6437-445f-8e6e-22fe0374dc48" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/parser.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/unit/WhenParsingCalculations.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/parser/CalculationExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/CalculationExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/parser/CalculationExpressionRuleset.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/CalculationExpressionRuleset.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/parser/Operations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/parser/Operations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/parser/TestClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/unit/WhenParsingCalculations.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/unit/WhenParsingCalculations.groovy" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +83,7 @@
       <recent name="parser.syntax_tree" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.WhenParsingCalculations.Test combination of median expressions works">
+  <component name="RunManager" selected="Gradle.WhenParsingCalculations">
     <configuration name="WhenParsingCalculations" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -108,12 +104,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="WhenParsingCalculations.Test combination of expressions expressions works" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WhenParsingCalculations.Test simple add calculations work" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.Test combination of expressions expressions works&quot;" />
+        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.Test simple add calculations work&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -128,12 +124,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="WhenParsingCalculations.Test combination of median expressions works" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WhenParsingCalculations.Test simple divide calculations work" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.Test combination of median expressions works&quot;" />
+        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.Test simple divide calculations work&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -148,12 +144,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="WhenParsingCalculations.When given a very large input string the calculation is robus" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WhenParsingCalculations.Test simple minus calculations work" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.When given a very large input string the calculation is robus&quot;" />
+        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.Test simple minus calculations work&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -168,12 +164,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="WhenParsingCalculations.When given another very large input string the calculation is robust" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="WhenParsingCalculations.Test simple multiply calculations work" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.When given another very large input string the calculation is robust&quot;" />
+        <option name="scriptParameters" value="--tests &quot;WhenParsingCalculations.Test simple multiply calculations work&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -190,11 +186,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.WhenParsingCalculations.Test combination of median expressions works" />
         <item itemvalue="Gradle.WhenParsingCalculations" />
-        <item itemvalue="Gradle.WhenParsingCalculations.Test combination of expressions expressions works" />
-        <item itemvalue="Gradle.WhenParsingCalculations.When given another very large input string the calculation is robust" />
-        <item itemvalue="Gradle.WhenParsingCalculations.When given a very large input string the calculation is robus" />
+        <item itemvalue="Gradle.WhenParsingCalculations.Test simple minus calculations work" />
+        <item itemvalue="Gradle.WhenParsingCalculations.Test simple add calculations work" />
+        <item itemvalue="Gradle.WhenParsingCalculations.Test simple multiply calculations work" />
+        <item itemvalue="Gradle.WhenParsingCalculations.Test simple divide calculations work" />
       </list>
     </recent_temporary>
   </component>
@@ -225,28 +221,28 @@
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="674" y="182" key="#parser_[build]/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584506606272" />
-    <state width="1125" height="272" key="GridCell.Tab.0.bottom" timestamp="1584585942614">
+    <state width="1125" height="272" key="GridCell.Tab.0.bottom" timestamp="1584590552237">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1125" height="272" key="GridCell.Tab.0.bottom/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584585942614" />
+    <state width="1125" height="272" key="GridCell.Tab.0.bottom/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584590552237" />
     <state width="1398" height="225" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1584576655076" />
     <state width="1868" height="355" key="GridCell.Tab.0.bottom/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584528506779" />
-    <state width="1125" height="272" key="GridCell.Tab.0.center" timestamp="1584585942613">
+    <state width="1125" height="272" key="GridCell.Tab.0.center" timestamp="1584590552236">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1125" height="272" key="GridCell.Tab.0.center/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584585942613" />
+    <state width="1125" height="272" key="GridCell.Tab.0.center/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584590552236" />
     <state width="1398" height="225" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1584576655075" />
     <state width="1868" height="355" key="GridCell.Tab.0.center/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584528506778" />
-    <state width="1125" height="272" key="GridCell.Tab.0.left" timestamp="1584585942613">
+    <state width="1125" height="272" key="GridCell.Tab.0.left" timestamp="1584590552236">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1125" height="272" key="GridCell.Tab.0.left/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584585942613" />
+    <state width="1125" height="272" key="GridCell.Tab.0.left/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584590552236" />
     <state width="1398" height="225" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1584576655074" />
     <state width="1868" height="355" key="GridCell.Tab.0.left/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584528506777" />
-    <state width="1125" height="272" key="GridCell.Tab.0.right" timestamp="1584585942613">
+    <state width="1125" height="272" key="GridCell.Tab.0.right" timestamp="1584590552236">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
-    <state width="1125" height="272" key="GridCell.Tab.0.right/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584585942613" />
+    <state width="1125" height="272" key="GridCell.Tab.0.right/0.0.1680.1010/1680.-640.1080.1880@0.0.1680.1010" timestamp="1584590552236" />
     <state width="1398" height="225" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1584576655075" />
     <state width="1868" height="355" key="GridCell.Tab.0.right/1920.23.1920.1057/-1440.1103.1440.877/0.23.1920.1057@0.23.1920.1057" timestamp="1584528506778" />
     <state width="818" height="336" key="GridCell.Tab.1.bottom" timestamp="1584584692640">

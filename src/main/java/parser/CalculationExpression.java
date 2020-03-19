@@ -51,7 +51,7 @@ public class CalculationExpression {
         return Math.round(doubleToReound * roundingBase) / roundingBase;
     }
 
-    public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET() {
+    public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET_USING_RADIANS() {
         ArrayList<Operation<CalculationValue>> operationsInRuleset = new ArrayList<>();
 
         operationsInRuleset.add(Operations.Constants.PI_CONSTANT);
@@ -60,15 +60,15 @@ public class CalculationExpression {
         operationsInRuleset.add(Operations.MULTIPLICATION_OPERATION);
         operationsInRuleset.add(Operations.DIVISION_OPERATION);
         operationsInRuleset.add(Operations.MODULO_OPERATION);
-        operationsInRuleset.add(Operations.SIN_OPERATION);
-        operationsInRuleset.add(Operations.COS_OPERATION);
-        operationsInRuleset.add(Operations.TAN_OPERATION);
-        operationsInRuleset.add(Operations.ARCCOS_OPERATION);
-        operationsInRuleset.add(Operations.ARCSIN_OPERATION);
-        operationsInRuleset.add(Operations.ARCTAN_OPERATION);
-        operationsInRuleset.add(Operations.COT_OPERATION);
-        operationsInRuleset.add(Operations.CSC_OPERATION);
-        operationsInRuleset.add(Operations.SEC_OPERATION);
+        operationsInRuleset.add(Operations.SIN_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.COS_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.TAN_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.ARCCOS_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.ARCSIN_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.ARCTAN_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.COT_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.CSC_OPERATION_IN_RADIANS);
+        operationsInRuleset.add(Operations.SEC_OPERATION_IN_RADIANS);
         operationsInRuleset.add(Operations.ABS_OPERATION);
         operationsInRuleset.add(Operations.LOG_OPERATION);
         operationsInRuleset.add(Operations.POW_OPERATION);
@@ -86,8 +86,48 @@ public class CalculationExpression {
         );
     }
 
-    public static Double evaluateStringExpression(String stringExpression) throws CalculationExpressionException {
+    public static CalculationExpressionRuleset GENERAL_CALCULATION_RULESET_USING_DEGREES() {
+        ArrayList<Operation<CalculationValue>> operationsInRuleset = new ArrayList<>();
+
+        operationsInRuleset.add(Operations.Constants.PI_CONSTANT);
+        operationsInRuleset.add(Operations.ADDITION_OPERATION);
+        operationsInRuleset.add(Operations.SUBTRACTION_OPERATION);
+        operationsInRuleset.add(Operations.MULTIPLICATION_OPERATION);
+        operationsInRuleset.add(Operations.DIVISION_OPERATION);
+        operationsInRuleset.add(Operations.MODULO_OPERATION);
+        operationsInRuleset.add(Operations.SIN_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.COS_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.TAN_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.ARCCOS_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.ARCSIN_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.ARCTAN_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.COT_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.CSC_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.SEC_OPERATION_IN_DEGREES);
+        operationsInRuleset.add(Operations.ABS_OPERATION);
+        operationsInRuleset.add(Operations.LOG_OPERATION);
+        operationsInRuleset.add(Operations.POW_OPERATION);
+        operationsInRuleset.add(Operations.NTHROOT_OPERATION);
+        operationsInRuleset.add(Operations.MEAN_OPERATION);
+        operationsInRuleset.add(Operations.MEDIAN_OPERATION);
+        operationsInRuleset.add(Operations.STD_OPERATION);
+
+        //add constant PI
+        return CalculationExpressionRuleset.newRulesetParsingValuesAndGroupingWithBeginGroupSyntaxAndEndGroupSyntaxAndSequenceSeperatorSyntaxAndOperations(
+                Syntax.atomicSyntaxAsCharacter('('),
+                Syntax.atomicSyntaxAsCharacter(')'),
+                Syntax.atomicSyntaxAsCharacter(','),
+                operationsInRuleset
+        );
+    }
+
+    public static Double evaluateStringExpressionUsingRadians(String stringExpression) throws CalculationExpressionException {
         return CalculationExpression.calculationExpressionWithString(stringExpression)
-                .evaluateDoubleResultOfCalculationExpressionWithRuleset(CalculationExpression.GENERAL_CALCULATION_RULESET());
+                .evaluateDoubleResultOfCalculationExpressionWithRuleset(CalculationExpression.GENERAL_CALCULATION_RULESET_USING_RADIANS());
+    }
+
+    public static Double evaluateStringExpressionUsingDegrees(String stringExpression) throws CalculationExpressionException {
+        return CalculationExpression.calculationExpressionWithString(stringExpression)
+                .evaluateDoubleResultOfCalculationExpressionWithRuleset(CalculationExpression.GENERAL_CALCULATION_RULESET_USING_DEGREES());
     }
 }

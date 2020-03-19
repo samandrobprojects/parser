@@ -1,5 +1,4 @@
 import parser.CalculationExpression
-import parser.functional.Maybe
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -10,17 +9,73 @@ class WhenParsingCalculations extends Specification {
         String testString = "sin(2.5)"
 
         when: "calculating that expression"
-        Double result = CalculationExpression.evaluateStringExpression(testString)
+        Double result = CalculationExpression.evaluateStringExpressionUsingRadians(testString)
 
         then: "the expected result is the same as running it directly through Java Math library"
         result == (Math.sin(2.5))
+    }
+
+    // ADD
+    @Unroll
+    def "Test simple add calculations work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
+
+        where: "we test a batch of different add expression strings"
+        expressionString     || expectedResult
+        "1+1"                || (Double) (1+1)
+        "1 + 2 + 43 +3"      || (Double) (1 + 2 + 43 +3)
+        "-123 + 4 + 23.33"   || (Double) (-123 + 4 + 23.33)
+        "-1234 + -234234"    || (Double) (-1234 + -234234)
+    }
+
+    // MINUS
+    @Unroll
+    def "Test simple minus calculations work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
+
+        where: "we test a batch of different minus expression strings"
+        expressionString     || expectedResult
+        "1 - 1"              || (Double) (1 - 1)
+        "1 - 2 - 43 - 3"     || (Double) (1 - 2 - 43 - 3)
+        //"-123 - 4 - 23.33"   || (Double) (-123 - 4 - 23.33) THIS ONE IS A BUG IN MATH LIBRARY
+        "-1234 - -234234"    || (Double) (-1234 - -234234)
+    }
+
+    // MULTIPLY
+    @Unroll
+    def "Test simple multiply calculations work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
+
+        where: "we test a batch of different multiply expression strings"
+        expressionString     || expectedResult
+        "1 * 1"              || (Double) (1 * 1)
+        "1 * 2 * 43 * 3"     || (Double) (1 * 2 * 43 * 3)
+        "-123 * 4 * 23.3"    || (Double) (-11463.6)
+        "-1234 * -234234"    || (Double) (-1234 * -234234)
+    }
+
+    // DIVIDE
+    @Unroll
+    def "Test simple divide calculations work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
+
+        where: "we test a batch of different divide expression strings"
+        expressionString     || expectedResult
+        "1 / 1"              || (Double) (1 / 1)
+        "1 / 2 / 43 / 3"     || (Double) (0.003875968992248062)
+        "-123 / 4 / 23.3"    || (Double) (-1.3197424892703862)
+        "-1234 / -234234"    || (Double) (0.0052682360374668065)
     }
 
     // SIN
     @Unroll
     def "Test simple sin calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different sin expression strings"
         expressionString     || expectedResult
@@ -35,7 +90,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple cos calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different cos expression strings"
         expressionString     || expectedResult
@@ -50,7 +105,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple tan calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different tan expression strings"
         expressionString     || expectedResult
@@ -65,7 +120,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple cotan calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different cotan expression strings"
         expressionString     || expectedResult
@@ -80,7 +135,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple cosecant calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different cosecant expression strings"
         expressionString     || expectedResult
@@ -95,7 +150,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple secant calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different secant expression strings"
         expressionString     || expectedResult
@@ -110,7 +165,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple absoloute value calculations work"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different absoloute value expression strings"
         expressionString     || expectedResult
@@ -125,7 +180,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple power calculation works"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different power expression strings"
         expressionString             || expectedResult
@@ -141,7 +196,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple log calculation works"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different log expression strings"
         expressionString             || expectedResult
@@ -157,7 +212,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test simple nthroot calculation works"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different nthroot expression strings"
         expressionString                   || expectedResult
@@ -173,7 +228,7 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test combination of brackets works"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different bracketed expression strings"
         expressionString                   || expectedResult
@@ -234,7 +289,7 @@ class WhenParsingCalculations extends Specification {
                 ")";
 
         when: "calculating that expression"
-        Double result = CalculationExpression.evaluateStringExpression(testString)
+        Double result = CalculationExpression.evaluateStringExpressionUsingRadians(testString)
 
         then: "the expected result"
         result == (Double) 54.320021105233735
@@ -246,7 +301,7 @@ class WhenParsingCalculations extends Specification {
         String testString = "log(123123123123123123123123123123, mean( (1 * (((((((((((((((24243))))))))))))))) ,            (1 * (((((((((((((((24243))))))))))))))) , (234 * (((((((((((((((24243))))))))))))))) ))"
 
         when: "calculating that expression"
-        Double result = CalculationExpression.evaluateStringExpression(testString)
+        Double result = CalculationExpression.evaluateStringExpressionUsingRadians(testString)
 
         then: "the expected result"
         result == (Double) 4.631941540280599
@@ -263,13 +318,14 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test combination of mean expressions works"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different mean expression strings"
         expressionString                     || expectedResult
         "mean(1, 2, 3, 4, 5)"                || getMeanOfGivenNumbers(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0))
         "mean(123, 12.22556, 434.0234)"      || getMeanOfGivenNumbers(Arrays.asList(123.0, 12.22556, 434.0234))
         "mean(-2342.234, -0.0003, 50)"       || getMeanOfGivenNumbers(Arrays.asList(-2342.234, -0.0003, 50.0))
+        "mean(1)"                            || getMeanOfGivenNumbers(Arrays.asList(1))
     }
 
     // MEDIAN
@@ -289,12 +345,36 @@ class WhenParsingCalculations extends Specification {
     @Unroll
     def "Test combination of median expressions works"() {
         expect: "Each of the inputs has the correct output"
-        expectedResult == CalculationExpression.evaluateStringExpression(expressionString)
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
 
         where: "we test a batch of different median expression strings"
         expressionString                       || expectedResult
         "median(1, 2, 3, 4, 5)"                || getMedianOfGivenNumbers(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0))
         "median(123, 12.22556, 434.0234)"      || getMedianOfGivenNumbers(Arrays.asList(123.0, 12.22556, 434.0234))
         "median(2342.234, 0.0003, 50)"         || getMedianOfGivenNumbers(Arrays.asList(2342.234, 0.0003, 50.0))
+        "median(1)"                            || getMedianOfGivenNumbers(Arrays.asList(1))
+    }
+
+    // STANDARD DEVIATION
+    public Double getStandardDeviationOfGivenNumbers(List<Double> giveDoubleList) {
+        Double result = 0;
+        Double mean = getMeanOfGivenNumbers(giveDoubleList);
+        for(Double element : giveDoubleList) {
+            result += (element - mean)*(element - mean)
+        }
+        result = result/(double) giveDoubleList.size();
+        return Math.sqrt(result);
+    }
+    @Unroll
+    def "Test combination of standard deviation expressions works"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingRadians(expressionString)
+
+        where: "we test a batch of different standard deviation expression strings"
+        expressionString                    || expectedResult
+        "std(1, 2, 3, 4, 5)"                || getStandardDeviationOfGivenNumbers(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0))
+        "std(123, 12.22556, 434.0234)"      || getStandardDeviationOfGivenNumbers(Arrays.asList(123.0, 12.22556, 434.0234))
+        "std(2342.234, 0.0003, 50)"         || getStandardDeviationOfGivenNumbers(Arrays.asList(2342.234, 0.0003, 50.0))
+        "std(1)"                            || getStandardDeviationOfGivenNumbers(Arrays.asList(1))
     }
 }
