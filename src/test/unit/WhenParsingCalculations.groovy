@@ -86,6 +86,21 @@ class WhenParsingCalculations extends Specification {
         "sin(0)"             || Math.sin(0)
     }
 
+    // SIN
+    @Unroll
+    def "Test simple sin calculations in degrees work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingDegrees(expressionString)
+
+        where: "we test a batch of different sin expression strings"
+        expressionString     || expectedResult
+        "sin(1)"             || Math.sin(Math.toRadians(1))
+        "sin(12)"            || Math.sin(Math.toRadians(12))
+        "sin(0)"             || Math.sin(Math.toRadians(0))
+        "sin(-244)"          || Math.sin(Math.toRadians(-244))
+        "sin(1000)"          || Math.sin(Math.toRadians(1000))
+    }
+
     // COS
     @Unroll
     def "Test simple cos calculations work"() {
@@ -99,6 +114,21 @@ class WhenParsingCalculations extends Specification {
         "cos(-12334)"        || Math.cos(-12334)
         "cos(2234234234)"    || Math.cos(2234234234)
         "cos(0)"             || Math.cos(0)
+    }
+
+    // COS
+    @Unroll
+    def "Test simple cos calculations in degrees work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingDegrees(expressionString)
+
+        where: "we test a batch of different cos expression strings"
+        expressionString     || expectedResult
+        "cos(1)"             || Math.cos(Math.toRadians(1))
+        "cos(12)"            || Math.cos(Math.toRadians(12))
+        "cos(0)"             || Math.cos(Math.toRadians(0))
+        "cos(-244)"          || Math.cos(Math.toRadians(-244))
+        "cos(1000)"          || Math.cos(Math.toRadians(1000))
     }
 
     // TAN
@@ -116,6 +146,21 @@ class WhenParsingCalculations extends Specification {
         "tan(0)"             || Math.tan(0)
     }
 
+    // TAN
+    @Unroll
+    def "Test simple tan calculations in degrees work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingDegrees(expressionString)
+
+        where: "we test a batch of different tan expression strings"
+        expressionString     || expectedResult
+        "tan(1)"             || Math.tan(Math.toRadians(1))
+        "tan(12)"            || Math.tan(Math.toRadians(12))
+        "tan(0)"             || Math.tan(Math.toRadians(0))
+        "tan(-244)"          || Math.tan(Math.toRadians(-244))
+        "tan(1000)"          || Math.tan(Math.toRadians(1000))
+    }
+
     // COTAN
     @Unroll
     def "Test simple cotan calculations work"() {
@@ -129,6 +174,20 @@ class WhenParsingCalculations extends Specification {
         "cot(-12334)"        || 1.0 / Math.tan(-12334)
         "cot(2234234234)"    || 1.0 / Math.tan(2234234234)
         //"cot(0)"             || 1.0 / Math.tan(0) ZERO CANNOT WORK IS IS UNDEFINED
+    }
+
+    // COTAN
+    @Unroll
+    def "Test simple cotan calculations in degrees work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingDegrees(expressionString)
+
+        where: "we test a batch of different cotan expression strings"
+        expressionString     || expectedResult
+        "cot(1)"             ||  1.0 / Math.tan(Math.toRadians(1))
+        "cot(12)"            ||  1.0 / Math.tan(Math.toRadians(12))
+        "cot(-244)"          ||  1.0 / Math.tan(Math.toRadians(-244))
+        "cot(1000)"          ||  1.0 / Math.tan(Math.toRadians(1000))
     }
 
     // COSECANT
@@ -146,6 +205,20 @@ class WhenParsingCalculations extends Specification {
         "csc(0)"             || 1.0 / Math.cos(0)
     }
 
+    // COSECANT
+    @Unroll
+    def "Test simple cosecant calculations in degrees work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingDegrees(expressionString)
+
+        where: "we test a batch of different cosecant expression strings"
+        expressionString     || expectedResult
+        "csc(1)"             ||  1.0 / Math.cos(Math.toRadians(1))
+        "csc(12)"            ||  1.0 / Math.cos(Math.toRadians(12))
+        "csc(-244)"          ||  1.0 / Math.cos(Math.toRadians(-244))
+        "csc(1000)"          ||  1.0 / Math.cos(Math.toRadians(1000))
+    }
+
     // SECANT
     @Unroll
     def "Test simple secant calculations work"() {
@@ -159,6 +232,20 @@ class WhenParsingCalculations extends Specification {
         "sec(-12334)"        || 1.0 / Math.sin(-12334)
         "sec(2234234234)"    || 1.0 / Math.sin(2234234234)
         //"sec(0)"             || 1.0 / Math.sin(0) THIS CANNOT WORK FOR SIN 0
+    }
+
+    // SECANT
+    @Unroll
+    def "Test simple secant calculations in degrees work"() {
+        expect: "Each of the inputs has the correct output"
+        expectedResult == CalculationExpression.evaluateStringExpressionUsingDegrees(expressionString)
+
+        where: "we test a batch of different secant expression strings"
+        expressionString     || expectedResult
+        "sec(1)"             ||  1.0 / Math.sin(Math.toRadians(1))
+        "sec(12)"            ||  1.0 / Math.sin(Math.toRadians(12))
+        "sec(-244)"          ||  1.0 / Math.sin(Math.toRadians(-244))
+        "sec(1000)"          ||  1.0 / Math.sin(Math.toRadians(1000))
     }
 
     // ABS
