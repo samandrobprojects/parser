@@ -1,15 +1,10 @@
 package parser;
 
 import parser.functional.*;
-import parser.evaluator.EvaluationRuleset;
 import parser.evaluator.SyntaxTreeEvaluator;
-import parser.syntax_tree.SyntaxRuleset;
 import parser.syntax_tree.SyntaxTree;
 import parser.syntax_tree.SyntaxTreeBuilder;
-import parser.tokeniser.AcceptedAtomicToken;
 import parser.tokeniser.Tokeniser;
-import parser.tokeniser.TokeniserRuleset;
-import parser.tokeniser.tokens.AtomicToken;
 import parser.tokeniser.tokens.Token;
 
 import java.util.ArrayList;
@@ -35,14 +30,13 @@ public class CalculationExpression {
             SyntaxTreeBuilder syntaxTreeBuilder = SyntaxTreeBuilder.syntaxTreeBuilderWithSyntaxRuleset(calculationExpressionRuleset.getSyntaxRulesetForCalculationExpressions());
 
             SyntaxTree calculationExpressionSyntaxTree = syntaxTreeBuilder.buildSyntaxTreeFromListOfTokens(tokenisedCalculationExpression);
-            //System.out.println("evaluateDoubleResultOfCalculationExpressionWithRuleset: " + calculationExpressionSyntaxTree.DEBUG_getStringOfTree());
             SyntaxTreeEvaluator<CalculationValue> evaluatorOfCalculationExpression = SyntaxTreeEvaluator.syntaxTreeEvaluatorWithEvaluationRuleset(calculationExpressionRuleset.getEvaluationRulesetForCalculationExpressions());
 
             CalculationValue resultOfCalculationExpression = evaluatorOfCalculationExpression.evaluateSyntaxTree(calculationExpressionSyntaxTree);
 
             Maybe<Double> maybeDoubleResultOfCalculationExpression = resultOfCalculationExpression.maybeValueAsDouble();
             if (maybeDoubleResultOfCalculationExpression.isNotNothing()) {
-                return _roundToEaightDecimalPlaces(maybeDoubleResultOfCalculationExpression.object());
+                return maybeDoubleResultOfCalculationExpression.object();
             } else {
                 throw new CalculationExpressionException("resulting value was not a double, possibly incomplete expression");
             }
@@ -53,7 +47,7 @@ public class CalculationExpression {
         }
     }
 
-    private Double _roundToEaightDecimalPlaces(Double doubleToReound) {
+    private Double _roundToEightDecimalPlaces(Double doubleToReound) {
         Double roundingBase = 100000000.0;
         return Math.round(doubleToReound * roundingBase) / roundingBase;
     }
@@ -93,8 +87,6 @@ public class CalculationExpression {
                 operationsInRuleset
         );
     }
-
-
 
     public static Double evaluateStringExpression(String stringExpression) throws CalculationExpressionException {
         return CalculationExpression.calculationExpressionWithString(stringExpression)

@@ -3,9 +3,205 @@ import static org.junit.Assert.assertEquals;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.function.Function;
 import org.junit.Test;
 
 public class TestClass {
+
+    @Test
+    public void one() {
+        String testString = "( ( (1 + 1) + (1+ (1 + 1)) ) )";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 5");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void two() {
+        String testString = "(((((  ( ( ((((1 + 1)))) + (1+ (1 + 1)) ) ) * (( ( (1 + 1) + (1+ (1 + 1)) ) )) * ((( ( (1 + 1) + (1+ (1 + 1)) ) )))       )))))";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 125");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void three() {
+        String testString = "pow(2, 256)";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 125");
+        System.out.println("done.");
+
+        // exp4j
+        Expression e = new ExpressionBuilder(testString)
+                .build();
+        double expResult = e.evaluate();
+
+        System.out.print("ExpLib: ");
+        System.out.println(expResult);
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void four() {
+        String testString = "pow(2, pow(2, pow(2, 3)))";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: 125");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void five() {
+        String testString = "nthroot(1249726573853485, 4.5)";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: about 2263.85");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void six() {
+        String testString = "log(1249726573853485, 4.5)";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("wolframalpha: about 2263.85");
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void seven() {
+        String testString = "std(cos(4.332), pow(1.223,1.223), ((((1+(1+2))))))";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void eight() {
+        String testString = "mean(234234, 123454, 3453421)";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void nine() {
+        String testString = "median(cos(4.332), pow(1.223,1.223), ((((1+(1+2))))))";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
+
+    @Test
+    public void ten() {
+        String testString = "log(123123123123123123123123123123, mean( (1 * (((((((((((((((24243))))))))))))))) ,            (1 * (((((((((((((((24243))))))))))))))) , (234 * (((((((((((((((24243))))))))))))))) ))";
+        System.out.println("Emma Test");
+        Double resultValue = -1.0;
+        try {
+            resultValue = CalculationExpression.evaluateStringExpression(testString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        System.out.print("result: ");
+        System.out.println(resultValue);
+        System.out.println("done.");
+
+        assertEquals(6, 6);
+    }
 
     @Test
     public void stressOne() {
@@ -332,11 +528,10 @@ public class TestClass {
 
 
 
-    // Has 'e' to a given power....
-    // Workaround: multiply it alot
+    // written different,  with a carrot, complicated parsing needed here
     @Test
     public void evaluatesExpressionForPow() {
-        String testString = "pow(2, 4)";
+        String testString = "pow(2, pow(2, 2))";
         System.out.println("pow");
         // RobLib
         Double robResult = -1.0;
@@ -410,16 +605,23 @@ public class TestClass {
         System.out.print("RobLib: ");
         System.out.println(robResult);
 
-/*
         // exp4j
-        Expression e = new ExpressionBuilder(testString)
-                .build();
-        double expResult = e.evaluate();
+        Function logb = new Function("logb", 2) {
+            @Override
+            public double apply(double... args) {
+                return Math.log(args[0]) / Math.log(args[1]);
+            }
+        };
+        double result = new ExpressionBuilder("logb(8, 2)")
+                .function(logb)
+                .build()
+                .evaluate();
+        double expected = 3;
 
         System.out.print("ExpLib: ");
-        System.out.println(expResult);
+        System.out.println(result);
         System.out.println("done.");
-*/
+
 
         assertEquals(6, 6);
     }

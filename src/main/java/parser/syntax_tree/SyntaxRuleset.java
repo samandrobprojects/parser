@@ -1,9 +1,6 @@
 package parser.syntax_tree;
 
-import parser.tokeniser.AcceptedAtomicToken;
 import parser.tokeniser.tokens.Token;
-
-import java.util.List;
 
 public interface SyntaxRuleset {
     public interface SyntaxCategoryClassifier {

@@ -5,8 +5,6 @@ import parser.evaluator.EvaluationRuleset;
 import parser.syntax_tree.SyntaxRuleset;
 import parser.tokeniser.AcceptedAtomicToken;
 import parser.tokeniser.TokeniserRuleset;
-import parser.tokeniser.tokens.AtomicToken;
-import parser.tokeniser.tokens.IdentifierToken;
 import parser.tokeniser.tokens.NumericalToken;
 import parser.tokeniser.tokens.Token;
 
@@ -138,6 +136,4 @@ public class CalculationExpressionRuleset {
             }
         };
     }
-
-
 }

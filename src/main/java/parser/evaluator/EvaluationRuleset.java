@@ -1,10 +1,7 @@
 package parser.evaluator;
 
 import parser.functional.Maybe;
-import parser.tokeniser.AcceptedAtomicToken;
 import parser.tokeniser.tokens.Token;
-
-import java.util.List;
 
 public interface EvaluationRuleset<EVALUATED_VALUE> {
     public Maybe<EVALUATED_VALUE> maybeValueRepresentationOfValueToken(Token givenToken);

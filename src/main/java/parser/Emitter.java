@@ -49,5 +49,4 @@ public class Emitter<OBJECT_TO_EMIT> {
             return Maybe.asNothing();
         }
     }
-
 }

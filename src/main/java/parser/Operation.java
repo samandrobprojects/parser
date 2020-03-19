@@ -2,7 +2,6 @@ package parser;
 
 import parser.functional.*;
 import parser.syntax_tree.SyntaxRuleset;
-import parser.tokeniser.tokens.Token;
 
 public class Operation<VALUE> {
 

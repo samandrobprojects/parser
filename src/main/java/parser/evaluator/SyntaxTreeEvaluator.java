@@ -2,11 +2,6 @@ package parser.evaluator;
 
 import parser.functional.*;
 import parser.syntax_tree.SyntaxTree;
-import parser.tokeniser.TokeniserRuleset;
-import parser.tokeniser.TokeniserException;
-import parser.tokeniser.tokens.Token;
-
-import java.util.List;
 
 public class SyntaxTreeEvaluator<EVALUATED_VALUE> {
     private EvaluationRuleset<EVALUATED_VALUE> _evaluationRuleset;

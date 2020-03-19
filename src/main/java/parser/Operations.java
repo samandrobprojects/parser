@@ -3,7 +3,6 @@ package parser;
 import parser.functional.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +12,6 @@ public class Operations {
     private static final int BINDING_STRENGTH_MEDIUM = 100;
     private static final int BINDING_STRENGTH_HIGH = 200;
     private static final int BINDING_STRENGTH_HIGHEST = 250;
-    
 
     public static class Constants {
 
@@ -171,6 +169,9 @@ public class Operations {
                 public Maybe<Double> maybeValueResultOfApplyingFunctionOperationToListOfArguments(List<Double> givenArgumentList) {
                     Double num = givenArgumentList.get(0);
                     Double power = givenArgumentList.get(1);
+                    System.out.println("args");
+                    System.out.println(num);
+                    System.out.println(power);
                     return Maybe.asObject(Math.pow(num, power));
                 }
             }
@@ -235,7 +236,6 @@ public class Operations {
                 }
             }
     );
-
 
     /**
             Supporting private functions
@@ -345,6 +345,4 @@ public class Operations {
             }
         });
     }
-
-
 }

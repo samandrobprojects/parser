@@ -1,9 +1,6 @@
 package parser.syntax_tree;
 
-import parser.tokeniser.TokeniserException;
-import parser.tokeniser.tokens.AtomicToken;
 import parser.tokeniser.tokens.Token;
-import parser.functional.Maybe;
 
 import java.util.List;
 
@@ -115,12 +112,12 @@ public class SyntaxTreeBuilder {
                 while (!_currentTreePositionInSyntaxTreeBeingBuilt.maybeGetParentTree().object().syntaxTreeBindingIsWeakerThenGivenBindingStrength(infixOperationToIntroduce.getBindingStrength())) {
                     _currentTreePositionInSyntaxTreeBeingBuilt = _currentTreePositionInSyntaxTreeBeingBuilt.maybeGetParentTree().object();
                     if (_currentTreePositionInSyntaxTreeBeingBuilt.maybeGetParentTree().isNothing()) {
-                        throw new SyntaxTreeBuilderException("invalid syntax..");
+                        throw new SyntaxTreeBuilderException("invalid syntax");
                     }
                 }
                 _insertSyntaxTreeInCurrentTreePositionPushingExistingCurrentTreeToLeftBranch(infixOperationToIntroduce);
             } else {
-                throw new SyntaxTreeBuilderException("invalid syntax .");
+                throw new SyntaxTreeBuilderException("invalid syntax");
             }
 
         } else {
@@ -142,7 +139,7 @@ public class SyntaxTreeBuilder {
             syntaxTreeToPushIn.setLeftChildTree(_currentTreePositionInSyntaxTreeBeingBuilt);
             _currentTreePositionInSyntaxTreeBeingBuilt = syntaxTreeToPushIn;
         } else {
-            throw new SyntaxTreeBuilderException("invalid syntax, ");
+            throw new SyntaxTreeBuilderException("invalid syntax");
         }
     }
 }
